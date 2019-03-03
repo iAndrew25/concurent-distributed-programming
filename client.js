@@ -1,10 +1,12 @@
 let {GREETINGS, NAME, AGE, LOCATION, HOBBYS} = require('./constants'),
 	{sendMessage} = require('./tools'),
 	WebSocket = require('ws'),
-	ws = new WebSocket('ws://localhost:8080'),
-	standard_input = process.stdin;
+	ws = new WebSocket('ws://localhost:8080');
 
-standard_input.setEncoding('utf-8');
+const readline = require('readline').createInterface({
+	input: process.stdin,
+	output: process.stdout
+});
 
 ws.on('open', function open() {
 	ws.send(sendMessage('Hei, server!', GREETINGS));
@@ -13,20 +15,26 @@ ws.on('open', function open() {
 ws.on('message', payload => {
 	let {message, type} = JSON.parse(payload);
 
-	console.log('[SERVER]', message, '\n');
-	standard_input.on('data', input => {
+	readline.question(`[SERVER]: ${message}\n`, answer => {
 		switch(type) {
 			case NAME:
-				ws.send(sendMessage(input, NAME));
+				ws.send(sendMessage(answer, NAME));
 				break;
 
 			case AGE:
-				ws.send(sendMessage(input, AGE));
+				ws.send(sendMessage(answer, AGE));
 				break;
 
 			case LOCATION:
-				ws.send(sendMessage(input, LOCATION));
+				ws.send(sendMessage(answer, LOCATION));
 				break;
+
+			default:
+				ws.send(sendMessage('Nu înțeleg.'));
 		}
 	});
+});
+
+ws.on('close', () => {
+	console.log('[Client]: Byee.')
 });

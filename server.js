@@ -26,11 +26,11 @@ wss.on('connection', ws => {
 				break;
 
 			case LOCATION:
-				ws.send(sendMessage(`${message}... frumos oraș.`, LOCATION));
+				ws.send(sendMessage(`${message}... frumos oraș.`));
 				break;
 
 			default:
-				ws.send(sendMessage(`Nu înțeleg.`, LOCATION));
+				ws.send(sendMessage('Nu înțeleg.'));
 		}	
 	});
 	
