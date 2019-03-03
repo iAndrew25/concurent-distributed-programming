@@ -1,0 +1,7 @@
+module.exports = {
+	GREETINGS: 'GREETINGS',
+	NAME: 'NAME',
+	AGE: 'AGE',
+	LOCATION: 'LOCATION',
+	HOBBYS: 'HOBBYS'
+}
