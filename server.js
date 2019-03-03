@@ -7,7 +7,6 @@ wss.on('connection', ws => {
 	console.log('[SERVER]: Conexiune nouă.');
 
 	ws.on('message', payload => {
-		console.log('mesaj nou')
 		let {message, type} = JSON.parse(payload);
 		
 		console.log(type, '[CLIENT]:', message, '\n');
