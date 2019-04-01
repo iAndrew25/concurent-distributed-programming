@@ -3,7 +3,7 @@ const app = require('express')(),
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-	extended: true
+	extended: false
 }));
 
 let persons = [{
@@ -30,11 +30,11 @@ app.get('/persons', (req, res) => {
 
 app.get('/persons/:ssn', (req, res) => {
 	try {
-		let ssn = req.params.ssn,
-			newList = persons.find(person => person.ssn === ssn);
+		let ssn = parseInt(req.params.ssn),
+			searchedPerson = persons.find(person => person.ssn === ssn);
 
-		if(newList) {
-			return res.status(200).json(newList);
+		if(searchedPerson) {
+			return res.status(200).json(searchedPerson);
 		} else {
 			return res.status(404).json({message: 'User not found.'});
 		}
@@ -45,7 +45,7 @@ app.get('/persons/:ssn', (req, res) => {
 
 app.post('/persons', (req, res) => {
 	try {
-		let person = req.body.person,
+		let person = req.body;
 			persons = [...persons, person];
 
 		return res.status(200).json(persons);
@@ -56,8 +56,8 @@ app.post('/persons', (req, res) => {
 
 app.put('/persons/:ssn', (req, res) => {
 	try {
-		let ssn = req.params.ssn,
-			personData = req.body.person,
+		let ssn = parseInt(req.params.ssn),
+			personData = req.body,
 			found = false;
 
 		let newList = persons.map(person => {
@@ -65,7 +65,7 @@ app.put('/persons/:ssn', (req, res) => {
 				found = true;
 				return {
 					...person,
-					personData
+					...personData
 				}
 			} else {
 				return person;
@@ -85,7 +85,7 @@ app.put('/persons/:ssn', (req, res) => {
 
 app.delete('/persons/:ssn', (req, res) => {
 	try {
-		let ssn = req.params.ssn, 
+		let ssn = parseInt(req.params.ssn), 
 			newList = persons.filter(person => person.ssn !== ssn);
 
 		if(newList.length === persons) {
