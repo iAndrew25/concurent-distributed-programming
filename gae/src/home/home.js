@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Header from './header/header';
 
 import {LOL_URL, LOL_IMG} from '../utils/config';
@@ -13,6 +15,7 @@ export default class Home extends React.Component {
 
 		this.handlePageChange = this.handlePageChange.bind(this);
 		this.handleOnChange = this.handleOnChange.bind(this);
+		//this.translate = this.translate.bind(this);
 	}
 
 	componentDidMount() {
@@ -40,7 +43,6 @@ export default class Home extends React.Component {
 	}
 
 	renderDisplayChampions() {
-					console.log("this.state.displayChampions", this.state.displayChampions);
 		return (
 			<div className="champions-list">
 				{this.state.displayChampions.map(([key, value]) => 
@@ -49,6 +51,7 @@ export default class Home extends React.Component {
 						<div>
 							<span className="champion-name">{key}</span>
 							<p>{value.blurb}</p>
+							<button>Translate</button>
 							<p>Tags: <span className="tags">{value.tags.join(', ')}</span></p>
 						</div>
 					</div>
@@ -56,6 +59,31 @@ export default class Home extends React.Component {
 			</div>
 		)
 	}
+
+//async translate(id, text) {
+//	const {Translate} = require('@google-cloud/translate');
+
+//	const translate = new Translate({projectId: 'leagueoflegends'});
+
+//	const target = 'ro';
+
+//	const [translation] = await translate.translate(text, target);
+//	
+//	this.setState({
+//		displayChampions: this.state.displayChampions.map(([key, value]) => {
+//			if(key === id) {
+//				return [
+//					key,
+//					Object.assign({}, value, {
+//						blurb: translation
+//					})
+//				]
+//			} else {
+//				return [key, value];
+//			}
+//		})
+//	});	
+//}
 
 	render() {
 		let {currentPage} = this.state;
