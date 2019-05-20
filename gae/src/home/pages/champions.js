@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {LOL_URL, LOL_IMG, TRANSLATE} from '../../utils/config';
+import {LOL_URL, LOL_IMG, TRANSLATE, SPEECH} from '../../utils/config';
 
 export default class Home extends React.Component {
 	state = {
@@ -26,6 +26,10 @@ export default class Home extends React.Component {
 				displayChampions: []
 			});
 		}
+	}
+
+	speech = text => {
+		window.open(`${SPEECH}${text}`);
 	}
 
 	translate = (text, id) => {
@@ -59,6 +63,7 @@ export default class Home extends React.Component {
 							<span className="champion-name">{key}</span>
 							<p>{value.blurb}</p>
 							<button onClick={() => this.translate(value.blurb, key)}>Translate</button>
+							<button onClick={() => this.speech(value.blurb)}>Speech</button>
 							<p>Tags: <span className="tags">{value.tags.join(', ')}</span></p>
 						</div>
 					</div>
