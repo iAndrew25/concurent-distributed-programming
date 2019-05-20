@@ -28,6 +28,31 @@ export default class Home extends React.Component {
 		}
 	}
 
+	//async translate = (id, text) => {
+	//	const {Translate} = require('@google-cloud/translate');
+
+	//	const translate = new Translate({projectId: 'leagueoflegends'});
+
+	//	const target = 'ro';
+
+	//	const [translation] = await translate.translate(text, target);
+	//	
+	//	this.setState({
+	//		displayChampions: this.state.displayChampions.map(([key, value]) => {
+	//			if(key === id) {
+	//				return [
+	//					key,
+	//					Object.assign({}, value, {
+	//						blurb: translation
+	//					})
+	//				]
+	//			} else {
+	//				return [key, value];
+	//			}
+	//		})
+	//	});	
+	//}
+
 	renderDisplayChampions() {
 		return (
 			<div className="champions-list">

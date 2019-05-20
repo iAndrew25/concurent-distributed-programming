@@ -4,6 +4,7 @@ import Header from './header/header';
 
 import Champions from './pages/champions';
 import Maps from './pages/map';
+import Cinematic from './pages/cinematic';
 
 export default class Home extends React.Component {
 	state = {
@@ -20,6 +21,8 @@ export default class Home extends React.Component {
 				return <Champions />
 			case 'MAP':
 				return <Maps />
+			case 'CINEMATIC':
+				return <Cinematic />
 			default:
 				return null;
 		}

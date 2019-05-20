@@ -17,6 +17,9 @@ export default function({currentPage, handlePageChange}) {
 					<li className={classNames("nav-item", {"active": currentPage === 'MAP'})} onClick={() => handlePageChange('MAP')}>
 						<a className="nav-link">Map</a>
 					</li>
+					<li className={classNames("nav-item", {"active": currentPage === 'CINEMATIC'})} onClick={() => handlePageChange('CINEMATIC')}>
+						<a className="nav-link">Cinematic</a>
+					</li>
 				</ul>
 			</div>
 		</nav>
