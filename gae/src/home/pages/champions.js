@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {LOL_URL, LOL_IMG} from '../../utils/config';
+import {LOL_URL, LOL_IMG, TRANSLATE} from '../../utils/config';
 
 export default class Home extends React.Component {
 	state = {
@@ -28,30 +28,26 @@ export default class Home extends React.Component {
 		}
 	}
 
-	//async translate = (id, text) => {
-	//	const {Translate} = require('@google-cloud/translate');
-
-	//	const translate = new Translate({projectId: 'leagueoflegends'});
-
-	//	const target = 'ro';
-
-	//	const [translation] = await translate.translate(text, target);
-	//	
-	//	this.setState({
-	//		displayChampions: this.state.displayChampions.map(([key, value]) => {
-	//			if(key === id) {
-	//				return [
-	//					key,
-	//					Object.assign({}, value, {
-	//						blurb: translation
-	//					})
-	//				]
-	//			} else {
-	//				return [key, value];
-	//			}
-	//		})
-	//	});	
-	//}
+	translate = (text, id) => {
+		fetch(`${TRANSLATE}&lang=ro&text=${text}`)
+			.then(r => r.json())
+			.then(({text}) => {
+				this.setState({
+					displayChampions: this.state.displayChampions.map(([key, value]) => {
+						if(key === id) {
+							return [
+								key,
+								Object.assign({}, value, {
+									blurb: text.join('. ')
+								})
+							]
+						} else {
+							return [key, value];
+						}
+					})
+				});	
+			});
+	}
 
 	renderDisplayChampions() {
 		return (
@@ -62,7 +58,7 @@ export default class Home extends React.Component {
 						<div>
 							<span className="champion-name">{key}</span>
 							<p>{value.blurb}</p>
-							<button>Translate</button>
+							<button onClick={() => this.translate(value.blurb, key)}>Translate</button>
 							<p>Tags: <span className="tags">{value.tags.join(', ')}</span></p>
 						</div>
 					</div>
