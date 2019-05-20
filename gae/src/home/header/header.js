@@ -24,4 +24,4 @@ export default function({currentPage, handlePageChange}) {
 			</div>
 		</nav>
 	)
-}
+};
